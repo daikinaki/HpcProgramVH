@@ -2,20 +2,21 @@
 #待機幅(MB)
 LocalRead=13000
 LocalWrite=13000
-RemoteRead=8000
-RemoteWrite=3000
-MaxVE=120
+RemoteRead=3000
+RemoteWrite=7000
+MaxVH=50
 
 #測定によって変更する値
 Tseq=7800
-alpha=0.9999
-DeadLine=800
+alpha=0.999999
+DeadLine=650
 #試行回数
 TraialNumer=10
 CopyNumber=5
 #UrgentJobの発生時間
 StartUrgentJob=500
-ExpectedMemory=1024*40
+#1VHあたりの期待値となるメモリ使用量
+ExpectedMemory=1024*10*8
 
 #モデル化の関数
 def LocalReadOverHead(memory):
@@ -34,7 +35,7 @@ def RemoteWriteOverHead(memory):
   y=memory/RemoteWrite
   return y
 
-def TotalTime(VE):
-  y=Tseq*(1-alpha)+(Tseq*alpha)/VE
+def TotalTime(VH):
+  y=Tseq*(1-alpha)+(Tseq*alpha)/VH
   return y
 

@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 def DeadLineCompare(name,Minimum,Random,Expected,TraialNumer):
   print(name)
   data=[]
-  data.extend(["name","VE","ResouceTime","TotalTime","FinishTime"])
+  data.extend(["name","VH","ResouceTime","TotalTime","FinishTime"])
   print(*data,sep=',')
   for i in range(TraialNumer+2):
     data=[]

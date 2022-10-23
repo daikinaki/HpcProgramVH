@@ -10,7 +10,7 @@ def ResouceTime(name,ProposedResult,ExpectedResult,W):
   x=[i+1 for i in range(W)]
   plt.plot(x,Expected,label="ResouceTime (ランダム時の期待値)")
   plt.plot(x,Proposed,label="ResouceTime (提案手法)")
-  plt.xlabel("VE")
+  plt.xlabel("VH")
   plt.ylabel("time(s)")
   plt.title(name+'Storage',fontname="MS Gothic")
   plt.legend(prop={"family":"MS Gothic"})

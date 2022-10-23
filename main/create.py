@@ -11,32 +11,32 @@ jobcomp_before=mD.jobcomp_before
 data_before=mD.data_before
 BreakDataProposed=main.BreakDataProposed
 RemoteProposedDeadLine=main.RemoteProposedDeadLine
-LocalProposedDeadLine=main.LocalProposedDeadLine
+# LocalProposedDeadLine=main.LocalProposedDeadLine
 RemoteExpectedDeadLine=main.RemoteExpectedDeadLine
-LocalExpectedDeadLine=main.LocalExpectedDeadLine
+# LocalExpectedDeadLine=main.LocalExpectedDeadLine
 
 
 #結果
 RemoteProposedDatatemplate=[]
-LocalProposedDatatemplate=[]
+# LocalProposedDatatemplate=[]
 RemoteExpectedDatatemplate=[]
-LocalExpectedDatatemplate=[]
+# LocalExpectedDatatemplate=[]
 DefaultDataTemplate=[]
 
 def WriteData(data,name):
   #書き込み
-  with open('./Dataset/'+name+'.csv', 'w') as file:
+  with open('./main/Dataset/'+name+'.csv', 'w') as file:
     writer = csv.writer(file, lineterminator='')
     writer.writerows(data)
 
 #実行
 WriteDataTemplate("提案手法 (Remote)",RemoteProposedDeadLine,BreakDataProposed,RemoteProposedDatatemplate,endTime,data_before,jobcomp_before,mM.StartUrgentJob,mM.DeadLine,mM.CopyNumber)
 WriteData(RemoteProposedDatatemplate,"RemoteProposedDatatemplate")
-WriteDataTemplate("提案手法 (Local)",LocalProposedDeadLine,BreakDataProposed,LocalProposedDatatemplate,endTime,data_before,jobcomp_before,mM.StartUrgentJob,mM.DeadLine,mM.CopyNumber)
-WriteData(LocalProposedDatatemplate,"LocalProposedDatatemplate")
-WriteDataTemplate("期待値 (Remote)",RemoteExpectedDeadLine,BreakDataProposed,RemoteExpectedDatatemplate,endTime,data_before,jobcomp_before,mM.StartUrgentJob,mM.DeadLine,mM.CopyNumber)
-WriteData(RemoteExpectedDatatemplate,"RemoteExpectedDatatemplate")
-WriteDataTemplate("期待値 (Local)",LocalExpectedDeadLine,BreakDataProposed,LocalExpectedDatatemplate,endTime,data_before,jobcomp_before,mM.StartUrgentJob,mM.DeadLine,mM.CopyNumber)
-WriteData(LocalExpectedDatatemplate,"LocalExpectedDatatemplate")
-DefaultWriteDataTemplate(DefaultDataTemplate, endTime, data_before, jobcomp_before, mM.StartUrgentJob, mM.CopyNumber)
-WriteData(DefaultDataTemplate,"DefaultDataTemplate")
+
+
+# WriteDataTemplate("期待値 (Remote)",RemoteExpectedDeadLine,BreakDataProposed,RemoteExpectedDatatemplate,endTime,data_before,jobcomp_before,mM.StartUrgentJob,mM.DeadLine,mM.CopyNumber)
+# WriteData(RemoteExpectedDatatemplate,"RemoteExpectedDatatemplate")
+
+
+# DefaultWriteDataTemplate(DefaultDataTemplate, endTime, data_before, jobcomp_before, mM.StartUrgentJob, mM.CopyNumber)
+# WriteData(DefaultDataTemplate,"DefaultDataTemplate")
