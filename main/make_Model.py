@@ -12,11 +12,15 @@ alpha=0.999999
 DeadLine=650
 #試行回数
 TraialNumer=10
-CopyNumber=5
-#UrgentJobの発生時間
-StartUrgentJob=500
 #1VHあたりの期待値となるメモリ使用量
 ExpectedMemory=1024*10*8
+
+#UrgentJobの発生回数
+UrgentCount=10
+#UrgentJobの発生頻度(何分に一回か)
+UrgentJobStart=30
+#ジョブの総時間
+DatasetTotalTime=60*30*(UrgentCount+1)
 
 #モデル化の関数
 def LocalReadOverHead(memory):

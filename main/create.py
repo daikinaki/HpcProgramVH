@@ -1,5 +1,5 @@
 import csv
-from CreateDataTemplate.DataTemplate import WriteDataTemplate,DefaultWriteDataTemplate
+from CreateDataTemplate.DataTemplate import WriteDataTemplate
 import main
 import make_Model as mM
 import make_DataList as mD
@@ -30,13 +30,8 @@ def WriteData(data,name):
     writer.writerows(data)
 
 #実行
-WriteDataTemplate("提案手法 (Remote)",RemoteProposedDeadLine,BreakDataProposed,RemoteProposedDatatemplate,endTime,data_before,jobcomp_before,mM.StartUrgentJob,mM.DeadLine,mM.CopyNumber)
+RemoteProposedDatatemplate,RemoteExpectedDatatemplate,DefaultDataTemplate=WriteDataTemplate(RemoteProposedDeadLine,RemoteExpectedDeadLine,data_before,mM.DatasetTotalTime,mM.DeadLine,mM.UrgentCount)
+#書き込み
 WriteData(RemoteProposedDatatemplate,"RemoteProposedDatatemplate")
-
-
-# WriteDataTemplate("期待値 (Remote)",RemoteExpectedDeadLine,BreakDataProposed,RemoteExpectedDatatemplate,endTime,data_before,jobcomp_before,mM.StartUrgentJob,mM.DeadLine,mM.CopyNumber)
-# WriteData(RemoteExpectedDatatemplate,"RemoteExpectedDatatemplate")
-
-
-# DefaultWriteDataTemplate(DefaultDataTemplate, endTime, data_before, jobcomp_before, mM.StartUrgentJob, mM.CopyNumber)
-# WriteData(DefaultDataTemplate,"DefaultDataTemplate")
+WriteData(RemoteExpectedDatatemplate,"RemoteExpectedDatatemplate")
+WriteData(DefaultDataTemplate,"DefaultDataTemplate")
