@@ -16,7 +16,7 @@ TraialNumer=10
 ExpectedMemory=1024*10*8
 
 #UrgentJobの発生回数
-UrgentCount=10
+UrgentCount=2
 #UrgentJobの発生頻度(何分に一回か)
 UrgentJobStart=30
 #ジョブの総時間

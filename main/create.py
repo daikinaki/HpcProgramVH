@@ -30,7 +30,7 @@ def WriteData(data,name):
     writer.writerows(data)
 
 #実行
-RemoteProposedDatatemplate,RemoteExpectedDatatemplate,DefaultDataTemplate=WriteDataTemplate(RemoteProposedDeadLine,RemoteExpectedDeadLine,data_before,mM.DatasetTotalTime,mM.DeadLine,mM.UrgentCount)
+RemoteProposedDatatemplate,RemoteExpectedDatatemplate,DefaultDataTemplate=WriteDataTemplate(RemoteProposedDeadLine,RemoteExpectedDeadLine,data_before,mM.DatasetTotalTime,mM.DeadLine,mM.UrgentCount,mM.UrgentJobStart)
 #書き込み
 WriteData(RemoteProposedDatatemplate,"RemoteProposedDatatemplate")
 WriteData(RemoteExpectedDatatemplate,"RemoteExpectedDatatemplate")

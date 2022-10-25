@@ -11,35 +11,36 @@ def Time(second):
   return hour,minutes,second
 
 
-def Urgent(PreemtionData,ResultData,UrgentVH,jobNum,StartUrgentJob,DeadLine):
-  UrgentJob=PreemtionData[0].copy()
-  #job番号の記載
-  UrgentJob[3]=str(jobNum)
-  #que_name
-  UrgentJob[4]=str("urgent")
-  hour,minutes,second=Time(StartUrgentJob)
-  t=[0,9,11,12]
-  #時刻を入力
-  for z in range(4):
-    if(t[z]==12):
+def Urgent(UrgentResult,num,data_before,count,start):
+  UrgentJobData=[]
+  for i in range(count):
+    UrgentJob=data_before[1].copy() 
+    #job番号の記載
+    UrgentJob[3]=str(num)
+    #que_name
+    UrgentJob[4]=str("urgent")
+    hour,minutes,second=Time(start*(i+1))
+    t=[0,9,11,12]
+    #時刻を入力
+    for z in range(4):
       UrgentJob[t[z]]="2021/1/1"+" "+hour+":"+minutes+":"+second
-    else:
-      UrgentJob[t[z]]="2021/1/1 0:00:00"
-  #elpstime
-  UrgentJob[14]=str(DeadLine+100)
-  #etime
-  UrgentJob[15]=ResultData[1]
-  #VE
-  UrgentJob[19]=str(UrgentVH*8)
-  UrgentJob[20]=str(UrgentVH*8)
-  #njobs
-  njobs=UrgentVH
-  UrgentJob[17]=str(njobs)
-  #cpunum_req
-  UrgentJob[22]=str(njobs*2)
-  #memory
-  UrgentJob[35]=str(1)  
-  return UrgentJob
+    #elpstime
+    UrgentJob[14]=str(UrgentResult[1]+100)
+    #etime
+    UrgentJob[15]=str(UrgentResult[1])
+    UrgentVH=UrgentResult[0]
+    #VE
+    UrgentJob[19]=str(UrgentVH*8)
+    UrgentJob[20]=str(UrgentVH*8)
+    #njobs
+    UrgentJob[17]=str(UrgentVH)
+    #cpunum_req
+    UrgentJob[22]=str(UrgentVH*2)
+    #memory
+    UrgentJob[35]=str(i+1)  
+    num+=1
+    UrgentJobData.append(UrgentJob)
+  return UrgentJobData
 
 def DummyPreemtionData(data,num,etime):
   #job番号の記載
@@ -109,10 +110,45 @@ def PreemtionDataCreate(OccupyVH,difVH,data_before,DeadLine,UrgentCount,DatasetT
   return PreemtionData
 
 
+def CommonNormalJobCreate(MaxVH,time,jobnum,data_before):
+  CommonData=[]
+  RemainTotalResouceTime=MaxVH*time
+  Bool=True
+  i=0
+  while Bool:
+    tmp_list=data_before[1].copy()
+    if(i%3==0):
+      VH=random.randint(1,8)
+    else:
+      VH=1
+    etime=random.randint(600,1000)
+    if(RemainTotalResouceTime<etime*VH):
+      etime=RemainTotalResouceTime//VH
+      Bool=False
+    else:
+      RemainTotalResouceTime-=etime*VH
+    #job番号の記載
+    tmp_list[3]=str(jobnum)
+    #elps_time
+    tmp_list[14]=str(etime+100)
+    # etime  
+    tmp_list[15]=str(etime)
+    #njobs
+    tmp_list[17]=str(VH)
+    #VE
+    tmp_list[19]=str(VH*8)
+    tmp_list[20]=str(VH*8)
+    #cpu_num_req
+    tmp_list[22]=str(VH*2)
+    #memory
+    tmp_list[35]=str(jobnum)
+    jobnum+=1
+    CommonData.append(tmp_list)
+  return CommonData,jobnum
 
 
 #(選ばれた番号,ResultData,BreakData,出力先,slurm_list)
-def WriteDataTemplate(ProposedResult,ExpectedResult,data_before,DatasetTotalTime,DeadLine,UrgentCount):
+def WriteDataTemplate(ProposedResult,ExpectedResult,data_before,DatasetTotalTime,DeadLine,UrgentCount,UrgentJobStart):
   #出力先
   ProposedData=[]
   ExpectedData=[]
@@ -134,6 +170,16 @@ def WriteDataTemplate(ProposedResult,ExpectedResult,data_before,DatasetTotalTime
   Preemtiondata=PreemtionDataCreate(ExpectedVH,0,data_before,DeadLine,UrgentCount,DatasetTotalTime)
   ExpectedData.extend(Preemtiondata) 
   #共通の通常ジョブ作る
+  #jobnumを特定
+  jobnum=max(len(ExpectedData), len(ProposedData))
+  CommonData,Number=CommonNormalJobCreate(72-ExpectedVH, DatasetTotalTime, jobnum, data_before)
+  #追加
+  ProposedData.extend(CommonData)
+  DefaultData.extend(CommonData) 
+  ExpectedData.extend(CommonData)   
   #UrgentJob作り
-
+  ProposedUrgent=Urgent(ProposedResult,Number, data_before,UrgentCount, UrgentJobStart)
+  ProposedData.extend(ProposedUrgent)
+  ExpectedUrgent=Urgent(ExpectedResult,Number, data_before,UrgentCount, UrgentJobStart)
+  ExpectedData.extend(ExpectedUrgent)
   return ProposedData,ExpectedData,DefaultData
