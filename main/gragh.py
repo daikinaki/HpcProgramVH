@@ -1,6 +1,7 @@
 from measurement.DeadLineCompare import DeadLineCompare
 from measurement.FinishTimeCompare import FinishTimeCompare
 from measurement.ResouceTime import ResouceTime
+from measurement.slideGragh import slideGragh
 import main
 import make_Model as mM
 
@@ -27,3 +28,6 @@ FinishTimeCompare("Remote",RemoteProposedResult,RemoteExpectedResult,mM.MaxVH)
 # #ResouceTime
 ResouceTime("Remote",RemoteProposedResult,RemoteExpectedResult,mM.MaxVH)
 # ResouceTime("Local",LocalProposedResult,LocalExpectedResult,mM.MaxVH)
+
+#グラフ用
+slideGragh("Remote",RemoteProposedResult,mM.MaxVH)
