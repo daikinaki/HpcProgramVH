@@ -13,7 +13,7 @@ DeadLine=650
 #試行回数
 TraialNumer=10
 #1VHあたりの期待値となるメモリ使用量
-ExpectedMemory=1024*10*8
+ExpectedMemory=1024*20*8
 
 #UrgentJobの発生回数
 UrgentCount=2

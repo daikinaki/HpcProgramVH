@@ -14,6 +14,10 @@ def ExpectedValue(Result,DeadLineData,ExpectedMemory,ReadOverHead,WriteOverHead,
     if(BreakBool and FinishTime<=DeadLine):
       DeadLineData.extend([i,TotalTimeValue,SumOverHead,OnlyEtime,FinishTime])
       BreakBool=False
+  if(len(DeadLineData)==0):
+    tmp=copy.deepcopy(Result)
+    tmp=sorted(tmp, key=lambda x: x[4])
+    DeadLineData.extend(tmp[0])
   return Result,DeadLineData
 
 

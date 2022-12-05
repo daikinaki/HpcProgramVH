@@ -14,6 +14,7 @@ def ResouceTime(name,ProposedResult,ExpectedResult,W):
   plt.ylabel("$R$",fontname="MS Gothic")
   # plt.title(name+'Storage',fontname="MS Gothic")
   plt.legend(prop={"family":"MS Gothic"})
+  plt.yscale('log')
   plt.rcParams["font.size"] = 18
   plt.tight_layout()
   plt.show()

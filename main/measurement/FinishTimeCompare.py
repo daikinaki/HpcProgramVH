@@ -15,4 +15,5 @@ def FinishTimeCompare(name,ProposedResult,ExpectedResult,W):
   plt.ylabel("$T_{\mathrm{finish}}$ (s)")
   # plt.title(name+'Storage',fontname="MS Gothic")
   plt.legend(prop={"family":"MS Gothic"})
+  plt.yscale('log')
   plt.show()

@@ -89,7 +89,7 @@ def MakeDataBefore(MaxVH,MaxGB,etime,dummyMemory,Output):
 
 #実行
 #MakeDataBefore(MaxVH,MaxGB,etime,dummyMemory,Output):
-MakeDataBefore(72,20,600,100,extract_data)
+MakeDataBefore(72,40,600,100,extract_data)
 
 
 #保管ジョブの書き込み
